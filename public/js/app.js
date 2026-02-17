@@ -20,6 +20,10 @@ const userPassword = document.querySelector("#user-password");
 const userCreateSubmitBtn = document.querySelector(".submit");
 const closeUserModalBtn = document.querySelector(".close-modal");
 const cancelUserBtn = document.querySelector(".cancel");
+const userTableBody = document.querySelector(".table-body");
+const usersDataCount = document.querySelector(".users-data");
+
+
 
 //? <---------- Product Selector Section ---------------->
 
@@ -62,15 +66,50 @@ function createUser() {
   };
   data.users.push(newUser);
   addUserDataToLocalStorage(data.users);
-  hideUserModal()
+  hideUserModal();
+  showUserDataOnDashboard(data.users);
+  countOfUser()
 }
-function showUserData() {}
+function showUserDataOnDashboard(users) {
+  userTableBody.innerHTML = ""
+  users.forEach(function (user) {
+    userTableBody.insertAdjacentHTML(
+      "beforeend",
+      `
+       <div class="tableRow">
+              <p class="user-fullName">${user.name}</p>
+              <p class="user-username">${user.username}</p>
+              <p class="user-email">${user.email}</p>
+              <p class="user-password">${user.password}</p>
+                <div class="product-manage">
+                  <button class="edit-btn" onclick="editUser(${user.id})" >
+                    <!-- Edit icon -->
+                    <i class="fas fa-edit"></i>
+                   </button>
+                  <button class="remove-btn" onclick="removeUser(${user.id})">
+                  <!-- Ban icon -->
+                  <i class="fas fa-ban"></i>
+                  </button>
+              </div>
+        </div>
+      `,
+    );
+  });
+  countOfUser()
+}
+function showUserData() {
+  getUserDataToLocalStorage();
+}
 function addUserDataToLocalStorage(user) {
   const userParsedByJson = JSON.stringify(user);
   localStorage.setItem("user", userParsedByJson);
 }
-function getUserDataToLocalStorage(user) {
-  localStorage.getItem("user");
+function getUserDataToLocalStorage() {
+  const userDataOnLocalStorage = JSON.parse(localStorage.getItem("user"));
+  if (userDataOnLocalStorage) {
+    data.users = userDataOnLocalStorage;
+  }
+  showUserDataOnDashboard(userDataOnLocalStorage);
 }
 function ShowUserModal() {
   userModal.classList.remove("hidden");
@@ -82,3 +121,6 @@ function ShowUserModal() {
 function hideUserModal() {
   userModal.classList.add("hidden");
 }
+ function countOfUser(){
+  usersDataCount.innerHTML = data.users.length
+ }
