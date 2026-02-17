@@ -1,13 +1,5 @@
 const data = {
-  users: [
-    {
-      id: 1,
-      name: "پیمان احمدی",
-      username: "peyman",
-      email: "peyman@gmail.com",
-      password: "peyman1212",
-    },
-  ],
+  users: [],
 
   products: [
     {
@@ -36,10 +28,6 @@ const toggleMenu = document.querySelector(".toggle-sidebar");
 const homePageSidebar = document.querySelector(".sidebar");
 //! <----------- End Of Selector Section----------------->
 
-
-
-
-
 //? <------------ User Event Section ----------------->
 createUserBtn.addEventListener("click", ShowUserModal);
 userCreateSubmitBtn.addEventListener("click", createUser);
@@ -58,27 +46,12 @@ toggleMenu.addEventListener("click", function () {
 });
 //! <----------- End Of Function Section----------------->
 
-
-
-
-
-
-
 //*<---------------- User Function Section ------------------->
-function ShowUserModal() {
-  userModal.classList.remove("hidden");
-  userFullName.innerHTML = "";
-  userUsername.innerHTML = "";
-  userEmail.innerHTML = "";
-  userPassword.innerHTML = "";
-}
-function hideUserModal() {
-  userModal.classList.add("hidden");
-}
+
 function createUser() {
   const userFullNameData = userFullName.value;
   const userUsernameData = userUsername.value;
-  const userEmailData = userEmail.value
+  const userEmailData = userEmail.value;
   const userPasswordData = userPassword.value;
   const newUser = {
     id: Math.floor(Math.random() * 9999),
@@ -88,12 +61,24 @@ function createUser() {
     password: userPasswordData,
   };
   data.users.push(newUser);
-  console.log(data.users);
+  addUserDataToLocalStorage(data.users);
+  hideUserModal()
 }
 function showUserData() {}
 function addUserDataToLocalStorage(user) {
-  localStorage.setItem("user", user);
+  const userParsedByJson = JSON.stringify(user);
+  localStorage.setItem("user", userParsedByJson);
 }
 function getUserDataToLocalStorage(user) {
   localStorage.getItem("user");
+}
+function ShowUserModal() {
+  userModal.classList.remove("hidden");
+  userFullName.innerHTML = "";
+  userUsername.innerHTML = "";
+  userEmail.innerHTML = "";
+  userPassword.innerHTML = "";
+}
+function hideUserModal() {
+  userModal.classList.add("hidden");
 }
