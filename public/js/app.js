@@ -113,10 +113,10 @@ function getUserDataToLocalStorage() {
 }
 function ShowUserModal() {
   userModal.classList.remove("hidden");
-  userFullName.innerHTML = "";
-  userUsername.innerHTML = "";
-  userEmail.innerHTML = "";
-  userPassword.innerHTML = "";
+  userFullName.value = "";
+  userUsername.value = "";
+  userEmail.value = "";
+  userPassword.value = "";
 }
 function hideUserModal() {
   userModal.classList.add("hidden");
