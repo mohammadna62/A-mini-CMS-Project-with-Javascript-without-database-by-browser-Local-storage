@@ -25,10 +25,10 @@ const userTableBody = document.querySelector(".table-body");
 const usersDataCount = document.querySelector(".users-data");
 const userModalScreenEdit = document.querySelector("#user-modal-screen-edit");
 const paginationContainer = document.querySelector(".pagination");
-console.log(paginationContainer);
+const userSelectOption = document.querySelector(".numberPerPage");
 
 let userPage = 1;
-let userPerPage = 10;
+//let userPerPage = 10;
 //? <---------- Product Selector Section ---------------->
 
 //? <---------- Home Selector Section ---------------->
@@ -41,6 +41,7 @@ createUserBtn.addEventListener("click", ShowUserModal);
 userCreateSubmitBtn.addEventListener("click", createUser);
 closeUserModalBtn.addEventListener("click", hideUserModal);
 cancelUserBtn.addEventListener("click", hideUserModal);
+userSelectOption.addEventListener("change", changeUserPerPage);
 
 //submitUserEdit.addEventListener("click",)
 //*<---------------- Product Function Section ---------------->
@@ -77,9 +78,9 @@ function createUser() {
   countOfUser();
 }
 function showUserDataOnDashboard(users) {
-  let startIndex = (userPage - 1) * userPerPage; 
-  let lastIndex = startIndex + userPerPage; 
-  const shownUsers= users.slice(startIndex, lastIndex);
+  let startIndex = (userPage - 1) * Number(userSelectOption.value);
+  let lastIndex = startIndex + Number(userSelectOption.value);
+  const shownUsers = users.slice(startIndex, lastIndex);
 
   userTableBody.innerHTML = "";
   shownUsers.forEach(function (user) {
@@ -206,8 +207,8 @@ function editUser(userId) {
       }
       return user;
     });
-   data.users = userEdited
-    
+    data.users = userEdited;
+
     userModalScreenEdit.classList.add("hidden");
     addUserDataToLocalStorage(data.users);
     countOfUser();
@@ -250,7 +251,7 @@ function changePageHandler(userSelectedPage) {
   showUserDataOnDashboard(data.users);
 }
 function generatePagination() {
-  const pagesCount = data.users.length / userPerPage;
+  const pagesCount = data.users.length / Number(userSelectOption.value);
 
   for (let i = 0; i < pagesCount; i++) {
     paginationContainer.insertAdjacentHTML(
@@ -259,9 +260,12 @@ function generatePagination() {
         <span tabindex="1" class="page ${
           i === 0 ? "active" : ""
         }" onclick="changePageHandler(${i} + 1)">${i + 1}</span>
-      `
+      `,
     );
   }
 }
-
-generatePagination();
+function changeUserPerPage() {
+  paginationContainer.innerHTML = "";
+  generatePagination();
+  showUserDataOnDashboard(data.users)
+}

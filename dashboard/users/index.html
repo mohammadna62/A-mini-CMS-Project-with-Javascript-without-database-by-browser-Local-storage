@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa-IR" dir="rtl">
   <head>
     <meta charset="UTF-8" />
@@ -67,8 +67,18 @@
             <div>
               <p class="title-text">لیست کاربران</p>
               <p class="users-count-text caption-text">
-                <span class="users-data">۳</span>
-                <span>کاربر ثبت نام کرده اند.</span>
+                <span class="users-data" style="color: red;">۳</span>
+                <span>کاربر ثبت نام کرده اند.</span><br />
+                <span>نمایش تعداد کاربر در هر صفحه</span>
+                <select name="numberPerPage" id="numberPerPage" class="numberPerPage">
+                  <option value="10" selected>10</option>
+                  <option value="20" >20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+
+                </select>
               </p>
             </div>
             <a href="#" id="create-user" class="section-link">
@@ -91,8 +101,7 @@
 
           <!-- Table body (content) -->
           <!----------Insert From JS data-->
-          <div class="table-body">
-          </div>
+          <div class="table-body"></div>
 
           <!-- Table Footer  -->
           <div class="table-footer">
