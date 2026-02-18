@@ -22,8 +22,7 @@ const closeUserModalBtn = document.querySelector(".close-modal");
 const cancelUserBtn = document.querySelector(".cancel");
 const userTableBody = document.querySelector(".table-body");
 const usersDataCount = document.querySelector(".users-data");
-
-
+const userModalScreenEdit = document.querySelector("#user-modal-screen-edit");
 
 //? <---------- Product Selector Section ---------------->
 
@@ -37,6 +36,8 @@ createUserBtn.addEventListener("click", ShowUserModal);
 userCreateSubmitBtn.addEventListener("click", createUser);
 closeUserModalBtn.addEventListener("click", hideUserModal);
 cancelUserBtn.addEventListener("click", hideUserModal);
+
+//submitUserEdit.addEventListener("click",)
 //*<---------------- Product Function Section ---------------->
 function addProductDataToLocalStorage(product) {
   localStorage.setItem("user", product);
@@ -68,10 +69,10 @@ function createUser() {
   addUserDataToLocalStorage(data.users);
   hideUserModal();
   showUserDataOnDashboard(data.users);
-  countOfUser()
+  countOfUser();
 }
 function showUserDataOnDashboard(users) {
-  userTableBody.innerHTML = ""
+  userTableBody.innerHTML = "";
   users.forEach(function (user) {
     userTableBody.insertAdjacentHTML(
       "beforeend",
@@ -95,7 +96,7 @@ function showUserDataOnDashboard(users) {
       `,
     );
   });
-  countOfUser()
+  countOfUser();
 }
 function showUserData() {
   getUserDataToLocalStorage();
@@ -121,6 +122,106 @@ function ShowUserModal() {
 function hideUserModal() {
   userModal.classList.add("hidden");
 }
- function countOfUser(){
-  usersDataCount.innerHTML = data.users.length
- }
+function countOfUser() {
+  usersDataCount.innerHTML = data.users.length;
+}
+
+function editUser(userId) {
+  showUserModalScreenEdit();
+  const user = data.users.find(function (user) {
+    return user.id === userId;
+  });
+  userModalScreenEdit.innerHTML = "";
+  userModalScreenEdit.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="modal">
+        <header class="modal-header">
+          <h3>ویرایش اطلاعات کاربر</h3>
+          <button class="close-modal user" id="close-modal-user">
+            <i class="fas fa-times" ></i>
+          </button>
+        </header>
+        <main class="modal-content">
+          <input
+            type="text"
+            class="modal-input"
+            value = "${user.name}"
+            id="user-fullName-edit"
+          />
+          <input
+            type="text"
+            class="modal-input"
+            value = "${user.username}"
+            id="user-username-edit"
+             />
+          <input
+            type="email"
+            class="modal-input email"
+            value = "${user.email}"
+            id="user-email-edit"
+             />
+          <input
+            type="email"
+            class="modal-input"
+             value = "${user.password}"
+            id="user-password-edit"
+            />
+        </main>
+        <footer class="modal-footer">
+          <button class="cancel" id="cancel-user-edit">انصراف</button>
+          <button class="submit" id="submit-user-edit">تائید</button>
+        </footer>
+      </div>
+    `,
+  );
+  const closeModalUserEdit = document.querySelector("#close-modal-user");
+  const cancelUserEdit = document.querySelector("#cancel-user-edit");
+  const submitUserEdit = document.querySelector("#submit-user-edit");
+
+  const userFullNameEdit = document.querySelector("#user-fullName-edit");
+  const userUsernameEdit = document.querySelector("#user-username-edit");
+  const userEmailEdit = document.querySelector("#user-email-edit");
+  const userPasswordEdit = document.querySelector("#user-password-edit");
+  submitUserEdit.addEventListener("click", function () {
+    const userEdited = data.users.map(function (user) {
+      if (user.id === userId) {
+        return {
+          id: userId,
+          name: userFullNameEdit.value,
+          username: userUsernameEdit.value,
+          email: userEmailEdit.value,
+          password: userPasswordEdit.value,
+        };
+      }
+      return user;
+    });
+   data.users = userEdited
+    
+    userModalScreenEdit.classList.add("hidden");
+    addUserDataToLocalStorage(data.users);
+    countOfUser();
+    showUserDataOnDashboard(data.users);
+  });
+
+  closeModalUserEdit.addEventListener("click", function () {
+    userModalScreenEdit.classList.add("hidden");
+  });
+  cancelUserEdit.addEventListener("click", function () {
+    userModalScreenEdit.classList.add("hidden");
+  });
+}
+function removeUser(userId) {
+  const userIndexOfData = data.users.findIndex(function (user) {
+    return user.id === userId;
+  });
+  data.users.splice(userIndexOfData, 1);
+  addUserDataToLocalStorage(data.users);
+  countOfUser();
+  showUserDataOnDashboard(data.users);
+}
+
+function showUserModalScreenEdit() {
+  userModalScreenEdit.classList.remove("hidden");
+}
+function hideUserModalScreenEdit() {}
