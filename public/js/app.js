@@ -10,6 +10,7 @@ const data = {
     },
   ],
 };
+
 //? <------------ User Selector Section ----------------->
 const createUserBtn = document.querySelector(".section-link");
 const userModal = document.querySelector("#user-modal-screen");
@@ -23,7 +24,11 @@ const cancelUserBtn = document.querySelector(".cancel");
 const userTableBody = document.querySelector(".table-body");
 const usersDataCount = document.querySelector(".users-data");
 const userModalScreenEdit = document.querySelector("#user-modal-screen-edit");
+const paginationContainer = document.querySelector(".pagination");
+console.log(paginationContainer);
 
+let userPage = 1;
+let userPerPage = 10;
 //? <---------- Product Selector Section ---------------->
 
 //? <---------- Home Selector Section ---------------->
@@ -72,8 +77,12 @@ function createUser() {
   countOfUser();
 }
 function showUserDataOnDashboard(users) {
+  let startIndex = (userPage - 1) * userPerPage; 
+  let lastIndex = startIndex + userPerPage; 
+  const shownUsers= users.slice(startIndex, lastIndex);
+
   userTableBody.innerHTML = "";
-  users.forEach(function (user) {
+  shownUsers.forEach(function (user) {
     userTableBody.insertAdjacentHTML(
       "beforeend",
       `
@@ -111,6 +120,7 @@ function getUserDataToLocalStorage() {
     data.users = userDataOnLocalStorage;
   }
   showUserDataOnDashboard(userDataOnLocalStorage);
+  generatePagination();
 }
 function ShowUserModal() {
   userModal.classList.remove("hidden");
@@ -224,4 +234,34 @@ function removeUser(userId) {
 function showUserModalScreenEdit() {
   userModalScreenEdit.classList.remove("hidden");
 }
-function hideUserModalScreenEdit() {}
+function changePageHandler(userSelectedPage) {
+  userPage = userSelectedPage;
+
+  const pagesNumbers = document.querySelectorAll(".page");
+
+  pagesNumbers.forEach(function (pageNumber) {
+    if (+pageNumber.innerHTML === userPage) {
+      pageNumber.classList.add("active");
+    } else {
+      pageNumber.classList.remove("active");
+    }
+  });
+
+  showUserDataOnDashboard(data.users);
+}
+function generatePagination() {
+  const pagesCount = data.users.length / userPerPage;
+
+  for (let i = 0; i < pagesCount; i++) {
+    paginationContainer.insertAdjacentHTML(
+      "beforeend",
+      `
+        <span tabindex="1" class="page ${
+          i === 0 ? "active" : ""
+        }" onclick="changePageHandler(${i} + 1)">${i + 1}</span>
+      `
+    );
+  }
+}
+
+generatePagination();
