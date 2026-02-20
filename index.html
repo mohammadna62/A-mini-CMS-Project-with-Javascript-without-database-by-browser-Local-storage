@@ -187,7 +187,7 @@
               <div>
                 <p class="title-text">لیست محصولات</p>
                 <p class="products-count-text caption-text">
-                  <span class="products-data">4</span>
+                  <span class="products-data" id="showProductsCount">4</span>
                   <span> محصول در وبسایت شما وجود دارد </span>
                 </p>
               </div>
@@ -207,96 +207,7 @@
             </div>
 
             <div class="table-body">
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName sideopen-invisible">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn" class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="tableRow">
-                <p class="product-title">کفش ورزشی</p>
-                <p class="product-price">2,000,000</p>
-                <p class="product-shortName">kafsh-1</p>
-                <div class="product-manage">
-                  <button class="edit-btn" class="edit-btn">
-                    <!-- Edit icon -->
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="remove-btn">
-                    <!-- Delete fas icon -->
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
+                  <!-- Insert data From JS -->
             </div>
           </section>
         </section>
@@ -305,7 +216,7 @@
 
     <footer></footer>
 
-    <div class="toast failed">
+    <div class="toast success hidden">
       <i class="ui-border top-0"></i>
       <span class="icon-card">
         <span class="icon"></span>
@@ -343,7 +254,9 @@
       <!-- Sun icon -->
       <i class="fas fa-sun"></i>
     </button>
-
+     <div class="modal-screen hidden" id="product-modal-screen-edit">
+      <!-- insert from JS -->
+    </div>
     <!-- Modal Edit Product:
 
       <header class="modal-header">

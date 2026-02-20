@@ -43,12 +43,12 @@ cancelRemoveProduct.addEventListener("click", hideRemoveProductModal);
 
 function createProduct() {
   const productTitleData = productTitle.value;
-  const productPriceData = productPrice.value;
+  const productPriceData = +productPrice.value;
   const productShortNameData = productShortName.value;
   const newProduct = {
     id: Math.floor(Math.random() * 9999),
     title: productTitleData,
-    price: productPriceData,
+    price: +productPriceData,
     slug: productShortNameData,
   };
   data.products.push(newProduct);
@@ -141,9 +141,9 @@ function editProduct(productId) {
             id="product-title-edit"
           />
           <input
-            type="text"
+            type="number"
             class="modal-input"
-            value = "${product.price}"
+            value = "${product.price.toLocaleString()}"
             id="product-price-edit"
              />
           <input
@@ -175,7 +175,7 @@ function editProduct(productId) {
         return {
           id: productId,
           title: productTitleEdit.value,
-          price: productPriceEdit.value,
+          price: +productPriceEdit.value,
           slug: productSlugEdit.value,
         };
       }
