@@ -34,6 +34,8 @@ const cancelRemoveUserModal = document.querySelector("#cancel-removeUserModal");
 const submitRemoveUserModal = document.querySelector("#submit-removeUserModal");
 const progress = document.querySelector(".process");
 const toast = document.querySelector(".toast");
+const toggleMenu = document.querySelector(".toggle-sidebar");
+const homePageSidebar = document.querySelector(".sidebar");
 let userPage = 1;
 
 //! <----------- End Of Selector Section----------------->
@@ -295,3 +297,6 @@ function setTimerToToast() {
     }
   }, 50);
 }
+toggleMenu.addEventListener("click", function () {
+  homePageSidebar.classList.toggle("open");
+});

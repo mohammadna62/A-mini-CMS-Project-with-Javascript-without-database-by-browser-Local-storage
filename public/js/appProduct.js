@@ -24,7 +24,8 @@ const cancelRemoveProduct = document.querySelector("#cancel-removeProduct");
 const submitRemoveProduct = document.querySelector("#submit-removeProduct");
 const toast = document.querySelector(".toast");
 const progress = document.querySelector(".process");
-
+const toggleMenu = document.querySelector(".toggle-sidebar");
+const homePageSidebar = document.querySelector(".sidebar");
 
 
 
@@ -276,3 +277,6 @@ function setTimerToToast() {
     }
   }, 50);
 }
+toggleMenu.addEventListener("click", function () {
+  homePageSidebar.classList.toggle("open");
+});

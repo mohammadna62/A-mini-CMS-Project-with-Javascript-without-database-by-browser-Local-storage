@@ -1,15 +1,3 @@
-const data = {
-  users: [],
-
-  products: [
-    {
-      id: 1,
-      title: "کفش ورزشی",
-      price: 2000000,
-      slug: "nike-sport-shoe",
-    },
-  ],
-};
 
 
 
