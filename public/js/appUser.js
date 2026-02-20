@@ -26,14 +26,16 @@ const usersDataCount = document.querySelector(".users-data");
 const userModalScreenEdit = document.querySelector("#user-modal-screen-edit");
 const paginationContainer = document.querySelector(".pagination");
 const userSelectOption = document.querySelector(".numberPerPage");
-
+const userRemoveModal = document.querySelector("#userRemoveModal");
+const closeModalRemoveUserModal = document.querySelector(
+  "#close-modal-removeUserModal",
+);
+const cancelRemoveUserModal = document.querySelector("#cancel-removeUserModal");
+const submitRemoveUserModal = document.querySelector("#submit-removeUserModal");
+const progress = document.querySelector(".process");
+const toast = document.querySelector(".toast");
 let userPage = 1;
-//let userPerPage = 10;
-//? <---------- Product Selector Section ---------------->
 
-//? <---------- Home Selector Section ---------------->
-const toggleMenu = document.querySelector(".toggle-sidebar");
-const homePageSidebar = document.querySelector(".sidebar");
 //! <----------- End Of Selector Section----------------->
 
 //? <------------ User Event Section ----------------->
@@ -42,19 +44,9 @@ userCreateSubmitBtn.addEventListener("click", createUser);
 closeUserModalBtn.addEventListener("click", hideUserModal);
 cancelUserBtn.addEventListener("click", hideUserModal);
 userSelectOption.addEventListener("change", changeUserPerPage);
+closeModalRemoveUserModal.addEventListener("click", hideRemoveUserModal);
+cancelRemoveUserModal.addEventListener("click", hideRemoveUserModal);
 
-//submitUserEdit.addEventListener("click",)
-//*<---------------- Product Function Section ---------------->
-function addProductDataToLocalStorage(product) {
-  localStorage.setItem("user", product);
-}
-function getProductDataToLocalStorage(product) {
-  localStorage.getItem("product");
-}
-//*<---------------- Home Function Section ------------------->
-toggleMenu.addEventListener("click", function () {
-  homePageSidebar.classList.toggle("open");
-});
 //! <----------- End Of Function Section----------------->
 
 //*<---------------- User Function Section ------------------->
@@ -99,7 +91,7 @@ function showUserDataOnDashboard(users) {
                    </button>
                   <button class="remove-btn" onclick="removeUser(${user.id})">
                   <!-- Ban icon -->
-                  <i class="fas fa-ban"></i>
+                  <i class="fas fa-trash-alt"></i>
                   </button>
               </div>
         </div>
@@ -213,6 +205,8 @@ function editUser(userId) {
     addUserDataToLocalStorage(data.users);
     countOfUser();
     showUserDataOnDashboard(data.users);
+    toast.classList.remove("hidden");
+    setTimerToToast();
   });
 
   closeModalUserEdit.addEventListener("click", function () {
@@ -223,13 +217,27 @@ function editUser(userId) {
   });
 }
 function removeUser(userId) {
-  const userIndexOfData = data.users.findIndex(function (user) {
-    return user.id === userId;
-  });
-  data.users.splice(userIndexOfData, 1);
-  addUserDataToLocalStorage(data.users);
-  countOfUser();
-  showUserDataOnDashboard(data.users);
+  userRemoveModal.classList.remove("hidden");
+
+  function handler() {
+    hideRemoveUserModal();
+
+    var userIndexOfData = data.users.findIndex(function (user) {
+      return user.id === userId;
+    });
+
+    data.users.splice(userIndexOfData, 1);
+
+    addUserDataToLocalStorage(data.users);
+
+    countOfUser();
+
+    showUserDataOnDashboard(data.users);
+
+    submitRemoveUserModal.removeEventListener("click", handler);
+  }
+
+  submitRemoveUserModal.addEventListener("click", handler);
 }
 
 function showUserModalScreenEdit() {
@@ -267,5 +275,23 @@ function generatePagination() {
 function changeUserPerPage() {
   paginationContainer.innerHTML = "";
   generatePagination();
-  showUserDataOnDashboard(data.users)
+  showUserDataOnDashboard(data.users);
+}
+
+function hideRemoveUserModal() {
+  userRemoveModal.classList.add("hidden");
+}
+function setTimerToToast() {
+  let progressSteps = 0;
+
+  const progressInterval = setInterval(function () {
+    progressSteps++;
+    progress.style.width = `${progressSteps}%`;
+
+    if (progressSteps > 110) {
+      progress.style.width = "1%";
+      toast.classList.add("hidden");
+      clearInterval(progressInterval);
+    }
+  }, 50);
 }

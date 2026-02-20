@@ -23,7 +23,7 @@
         <main class="side-menu">
           <ul class="side-container">
             <li>
-              <a href="/source/index.html" class="navlink">
+              <a href="/index.html" class="navlink">
                 <span class="navicon"><i class="fa-solid fa-house"></i></span>
                 <span class="title">داشبورد</span>
               </a>
@@ -67,17 +67,20 @@
             <div>
               <p class="title-text">لیست کاربران</p>
               <p class="users-count-text caption-text">
-                <span class="users-data" style="color: red;">۳</span>
+                <span class="users-data" style="color: red">۳</span>
                 <span>کاربر ثبت نام کرده اند.</span><br />
                 <span>نمایش تعداد کاربر در هر صفحه</span>
-                <select name="numberPerPage" id="numberPerPage" class="numberPerPage">
+                <select
+                  name="numberPerPage"
+                  id="numberPerPage"
+                  class="numberPerPage"
+                >
                   <option value="10" selected>10</option>
-                  <option value="20" >20</option>
+                  <option value="20">20</option>
                   <option value="30">30</option>
                   <option value="40">40</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
-
                 </select>
               </p>
             </div>
@@ -113,12 +116,12 @@
         </div>
       </section>
     </main>
-    <div class="toast success hidden">
+    <div class="toast success hidden " >
       <i class="ui-border top-0"></i>
       <span class="icon-card">
         <span class="icon"></span>
       </span>
-      <span class="toast-content"> محصول با موفقیت ویرایش شد </span>
+      <span class="toast-content"> کاربر با موفقیت ویرایش شد </span>
 
       <div class="process-bar">
         <div class="process"></div>
@@ -257,23 +260,26 @@
      -->
 
     <!-- Remove user Modal  -->
-    <!-- 
+    <div class="modal-screen hidden" id="userRemoveModal">
+      <div class="modal">
         <i class="ui-border top red"></i>
         <i class="ui-border bottom red"></i>
         <header class="modal-header">
-          <h3>اخراج کاربر</h3>
-          <button class="close-modal">
+          <h3>حذف کاربر</h3>
+          <button class="close-modal" id="close-modal-removeUserModal">
             <i class="fas fa-times"></i>
           </button>
         </header>
         <main class="modal-content">
-          <p class="remove-text">آیا از اخراج(بن) کردن این کاربر اطمینان دارید؟</p>
+          <p class="remove-text">آیا از حذف این کاربر اطمینان دارید؟</p>
         </main>
         <footer class="modal-footer">
-          <button class="cancel">انصراف</button>
-          <button class="submit">تائید</button>
+          <button class="cancel" id="cancel-removeUserModal">انصراف</button>
+          <button class="submit" id="submit-removeUserModal">تائید</button>
         </footer>
-           -->
-    <script src="./../../public/js/app.js"></script>
+      </div>
+    </div>
+
+    <script src="./../../public/js/appUser.js"></script>
   </body>
 </html>

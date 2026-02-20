@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مدیریت ممحصولات</title>
+    <title>مدیریت محصولات</title>
     <link rel="stylesheet" href="./../../public/css/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
   </head>
-  <body>
+  <body onload="getProductDataToLocalStorage()">
     <!-- main content -->
     <main>
       <!-- Sidebar -->
@@ -23,7 +23,7 @@
         <main class="side-menu">
           <ul class="side-container">
             <li>
-              <a href="/source/index.html" class="navlink">
+              <a href="/index.html" class="navlink">
                 <span class="navicon"><i class="fa-solid fa-house"></i></span>
                 <span class="title">داشبورد</span>
               </a>
@@ -67,8 +67,18 @@
             <div>
               <p class="title-text">لیست محصولات</p>
               <p class="products-count-text caption-text">
-                <span class="products-data">۳</span>
-                <span> محصول در وبسایت شما وجود دارد </span>
+                <span class="products-data" id="products-data" style="color: red;">۳</span>
+                <span> محصول در وبسایت شما وجود دارد </span><br />
+                <span>نمایش تعداد محصول در هر صفحه</span>
+                <select name="numberProductPerPage" id="numberProductPerPage" class="numberProductPerPage">
+                  <option value="10" selected>10</option>
+                  <option value="20" >20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+
+                </select>
               </p>
             </div>
             <a href="#" id="create-product" class="section-link">
@@ -89,114 +99,21 @@
           </div>
 
           <!-- Table body (content) -->
-          <div class="table-body">
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName sideopen-invisible">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn" class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-            <div class="tableRow">
-              <p class="product-title">کفش ورزشی</p>
-              <p class="product-price">2,000,000</p>
-              <p class="product-shortName">kafsh-1</p>
-              <div class="product-manage">
-                <button class="edit-btn" class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="remove-btn">
-                  <!-- Delete fas icon -->
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
+          <div class="table-body" id="table-body">
+             <!-- Insert Data From JS -->
           </div>
 
           <!-- Table Footer  -->
           <div class="table-footer">
             <!-- Pagination -->
             <div class="pagination">
-              <span tabindex="1" class="page">1</span>
-              <span tabindex="1" class="page">2</span>
-              <span tabindex="1" class="page active">3</span>
-              <span tabindex="1" class="page">4</span>
-              <span tabindex="1" class="page">5</span>
+             
             </div>
           </div>
         </div>
       </section>
     </main>
-    <div class="toast success hidden">
+    <div class="toast success hidden ">
       <i class="ui-border top-0"></i>
       <span class="icon-card">
         <span class="icon"></span>
@@ -208,13 +125,13 @@
       </div>
     </div>
 
-    <div class="modal-screen hidden">
+    <div class="modal-screen hidden" id="productRemoveModal" >
       <div class="modal">
         <i class="ui-border top red"></i>
         <i class="ui-border bottom red"></i>
         <header class="modal-header">
           <h3>حذف محصول</h3>
-          <button class="close-modal">
+          <button class="close-modal"  id="close-modal-removeProductclose">
             <i class="fas fa-times"></i>
           </button>
         </header>
@@ -222,8 +139,8 @@
           <p class="remove-text">آیا از حذف این محصول اطمینان دارید؟</p>
         </main>
         <footer class="modal-footer">
-          <button class="cancel">انصراف</button>
-          <button class="submit">تائید</button>
+          <button class="cancel" id="cancel-removeProduct">انصراف</button>
+          <button class="submit" id="submit-removeProduct">تائید</button>
         </footer>
       </div>
     </div>
@@ -234,7 +151,43 @@
       <!-- Sun icon -->
       <i class="fas fa-sun"></i>
     </button>
-
+     <div class="modal-screen hidden" id="user-modal-screen">
+      <div class="modal">
+        <header class="modal-header">
+          <h3>ایجاد محصول جدید</h3>
+          <button class="close-modal" id="close-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </header>
+       <main class="modal-content">
+            <input
+              type="text"
+              class="modal-input"
+              placeholder="عنوان محصول را وارد نمائید ..."
+              id="product-title"
+            />
+            <input
+              type="number"
+              class="modal-input"
+              placeholder="قیمت محصول را وارد نمائید ..."
+              id="product-price"
+            />
+            <input
+              type="text"
+              class="modal-input"
+              placeholder="عنوان کوتاه محصول را وارد نمائید ..."
+              id="product-shortName"
+            />
+          </main>
+        <footer class="modal-footer">
+          <button class="cancel" id="cancel">انصراف</button>
+          <button class="submit" id="submit">تائید</button>
+        </footer>
+      </div>
+    </div>
+    <div class="modal-screen hidden" id="product-modal-screen-edit">
+      <!-- insert from JS -->
+    </div>
     <!-- Product Edit Modal -->
     <!-- 
             <header class="modal-header">
@@ -321,6 +274,6 @@
             <button class="submit">تائید</button>
           </footer>
            -->
-    <script src="/public/js//app.js"></script>
+    <script src="./../../public/js/appProduct.js"></script>
   </body>
 </html>
