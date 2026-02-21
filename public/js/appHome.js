@@ -1,3 +1,7 @@
+//* <---------- Home Selector Section ---------------->
+const moonOrSunBtn = document.querySelector("#moonOrSunBtn");
+const html = document.querySelector("html");
+
 //? <---------- Home (Product) Selector Section ---------------->
 const toggleMenu = document.querySelector(".toggle-sidebar");
 const homePageSidebar = document.querySelector(".sidebar");
@@ -10,18 +14,34 @@ const progress = document.querySelector(".process");
 //! <---------- Home (User) Selector Section ---------------->
 const userContainer = document.querySelector("#table-user-body");
 
-//?<----------------Product Event Section --------------->
+//?<----------------Home Event Section --------------->
 toggleMenu.addEventListener("click", function () {
   homePageSidebar.classList.toggle("open");
+});
+moonOrSunBtn.addEventListener("click", function pageTheme() {
+  if (moonOrSunBtn.className === "fas fa-sun") {
+    const light = "light";
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className = light;
+    setLocalStorageTheme(light);
+  } else {
+    const dark = "dark";
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className = dark;
+    setLocalStorageTheme(dark);
+  }
 });
 //*<---------------- Home Function Section ------------------->
 
 function getData() {
+  //* Products Data Call
   const products = getProductLocalStorage();
   showCountOfProductOnLocalStorage();
   showProductsData(products);
   //* Users Data Call
   showUsersOnDashboard();
+  //* Theme Situation
+  themeSituationOnLoad();
 }
 
 function getProductLocalStorage() {
@@ -171,9 +191,11 @@ function showUsersOnDashboard() {
   const users = getUserDataFromLocalStorage();
   userContainer.innerHTML = "";
 
-  for (let i = users.length; i > users.length-5; i--) {
+  for (let i = users.length; i > users.length - 5; i--) {
     let user = users[i - 1];
-    userContainer.insertAdjacentHTML("beforeend",`
+    userContainer.insertAdjacentHTML(
+      "beforeend",
+      `
          <article>
               <!-- user icon -->
               <span class="icon-card">
@@ -185,11 +207,33 @@ function showUsersOnDashboard() {
                 <p class="user-email">${user.email}</p>
               </div>
             </article>
-      `)
+      `,
+    );
   }
 }
 
 function getUserDataFromLocalStorage() {
   const users = JSON.parse(localStorage.getItem("user"));
   return users;
+}
+
+//? <-------------Home Function Section---------->
+
+function setLocalStorageTheme(theme) {
+  localStorage.setItem("theme", theme);
+}
+function getLocalStorageTheme() {
+  const theme = localStorage.getItem("theme");
+  return theme;
+}
+function themeSituationOnLoad() {
+  const theme = getLocalStorageTheme();
+
+  if (theme === "dark") {
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className ="dark"
+  } else {
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className ="light"
+  }
 }

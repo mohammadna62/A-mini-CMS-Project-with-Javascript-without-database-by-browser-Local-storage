@@ -43,12 +43,12 @@ cancelRemoveProduct.addEventListener("click", hideRemoveProductModal);
 
 function createProduct() {
   const productTitleData = productTitle.value;
-  const productPriceData = +productPrice.value;
+  const productPriceData = productPrice.value;
   const productShortNameData = productShortName.value;
   const newProduct = {
     id: Math.floor(Math.random() * 9999),
     title: productTitleData,
-    price: +productPriceData,
+    price: productPriceData,
     slug: productShortNameData,
   };
   data.products.push(newProduct);
@@ -73,10 +73,10 @@ function showProductDataOnDashboard(products) {
               <p class="product-price">${product.price.toLocaleString()} ریال</p>
               <p class="product-shortName">${product.slug}</p>
               <div class="product-manage">
-                <button class="edit-btn">
-                  <!-- Edit icon -->
-                  <i class="fas fa-edit" onclick="editProduct(${product.id})"></i>
-                </button>
+                 <button class="edit-btn" onclick="editProduct(${product.id})" >
+                    <!-- Edit icon -->
+                    <i class="fas fa-edit"></i>
+                   </button>
                 <button class="remove-btn" onclick="removeProduct(${product.id})">
                   <!-- Delete fas icon -->
                   <i class="fas fa-trash-alt"></i>
