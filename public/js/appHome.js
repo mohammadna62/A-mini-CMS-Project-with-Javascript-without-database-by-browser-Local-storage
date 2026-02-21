@@ -18,19 +18,7 @@ const userContainer = document.querySelector("#table-user-body");
 toggleMenu.addEventListener("click", function () {
   homePageSidebar.classList.toggle("open");
 });
-moonOrSunBtn.addEventListener("click", function pageTheme() {
-  if (moonOrSunBtn.className === "fas fa-sun") {
-    const light = "light";
-    moonOrSunBtn.className = "fas fa-moon";
-    html.className = light;
-    setLocalStorageTheme(light);
-  } else {
-    const dark = "dark";
-    moonOrSunBtn.className = "fas fa-sun";
-    html.className = dark;
-    setLocalStorageTheme(dark);
-  }
-});
+moonOrSunBtn.addEventListener("click", pageTheme);
 //*<---------------- Home Function Section ------------------->
 
 function getData() {
@@ -219,6 +207,19 @@ function getUserDataFromLocalStorage() {
 
 //? <-------------Home Function Section---------->
 
+function pageTheme() {
+  if (moonOrSunBtn.className === "fas fa-sun") {
+    const light = "light";
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className = light;
+    setLocalStorageTheme(light);
+  } else {
+    const dark = "dark";
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className = dark;
+    setLocalStorageTheme(dark);
+  }
+}
 function setLocalStorageTheme(theme) {
   localStorage.setItem("theme", theme);
 }

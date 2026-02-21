@@ -5,6 +5,8 @@ const data = {
 };
 
 //? <---------- Product Selector Section ---------------->
+const moonOrSunBtn = document.querySelector("#productMoonOrSunBtn");
+const html = document.querySelector("html");
 const createProductBtn = document.querySelector("#create-product");
 const productModal = document.querySelector("#user-modal-screen");
 const productTitle = document.querySelector("#product-title");
@@ -39,6 +41,7 @@ cancelProductBtn.addEventListener("click", hideProductModal);
 productSelectOption.addEventListener("change", changeProductPerPage);
 closeModalRemoveProduct.addEventListener("click", hideRemoveProductModal);
 cancelRemoveProduct.addEventListener("click", hideRemoveProductModal);
+moonOrSunBtn.addEventListener("click", pageTheme);
 //*<---------------- Product Function Section ---------------->
 
 function createProduct() {
@@ -95,6 +98,7 @@ function showProductData() {
 function addProductDataToLocalStorage(product) {
   const productParsedByJson = JSON.stringify(product);
   localStorage.setItem("product", productParsedByJson);
+  themeSituationOnLoad()
 }
 function getProductDataToLocalStorage() {
   const productDataOnLocalStorage = JSON.parse(localStorage.getItem("product"));
@@ -103,6 +107,7 @@ function getProductDataToLocalStorage() {
   }
   showProductDataOnDashboard(productDataOnLocalStorage);
   generatePagination();
+  themeSituationOnLoad()
 }
 function ShowProductModal() {
   productModal.classList.remove("hidden");
@@ -280,3 +285,36 @@ function setTimerToToast() {
 toggleMenu.addEventListener("click", function () {
   homePageSidebar.classList.toggle("open");
 });
+
+
+function pageTheme() {
+  if (moonOrSunBtn.className === "fas fa-sun") {
+    const light = "light";
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className = light;
+    setLocalStorageTheme(light);
+  } else {
+    const dark = "dark";
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className = dark;
+    setLocalStorageTheme(dark);
+  }
+}
+function setLocalStorageTheme(theme) {
+  localStorage.setItem("theme", theme);
+}
+function getLocalStorageTheme() {
+  const theme = localStorage.getItem("theme");
+  return theme;
+}
+function themeSituationOnLoad() {
+  const theme = getLocalStorageTheme();
+
+  if (theme === "dark") {
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className ="dark"
+  } else {
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className ="light"
+  }
+}

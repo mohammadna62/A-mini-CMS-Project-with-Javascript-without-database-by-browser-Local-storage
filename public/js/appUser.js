@@ -12,6 +12,8 @@ const data = {
 };
 
 //? <------------ User Selector Section ----------------->
+const moonOrSunBtn = document.querySelector("#moonOrSunBtn");
+const html = document.querySelector("html");
 const createUserBtn = document.querySelector(".section-link");
 const userModal = document.querySelector("#user-modal-screen");
 const userFullName = document.querySelector("#user-fullName");
@@ -48,6 +50,7 @@ cancelUserBtn.addEventListener("click", hideUserModal);
 userSelectOption.addEventListener("change", changeUserPerPage);
 closeModalRemoveUserModal.addEventListener("click", hideRemoveUserModal);
 cancelRemoveUserModal.addEventListener("click", hideRemoveUserModal);
+moonOrSunBtn.addEventListener("click", pageTheme);
 
 //! <----------- End Of Function Section----------------->
 
@@ -116,6 +119,7 @@ function getUserDataToLocalStorage() {
   }
   showUserDataOnDashboard(userDataOnLocalStorage);
   generatePagination();
+  themeSituationOnLoad()
 }
 function ShowUserModal() {
   userModal.classList.remove("hidden");
@@ -300,3 +304,36 @@ function setTimerToToast() {
 toggleMenu.addEventListener("click", function () {
   homePageSidebar.classList.toggle("open");
 });
+
+
+function pageTheme() {
+  if (moonOrSunBtn.className === "fas fa-sun") {
+    const light = "light";
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className = light;
+    setLocalStorageTheme(light);
+  } else {
+    const dark = "dark";
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className = dark;
+    setLocalStorageTheme(dark);
+  }
+}
+function setLocalStorageTheme(theme) {
+  localStorage.setItem("theme", theme);
+}
+function getLocalStorageTheme() {
+  const theme = localStorage.getItem("theme");
+  return theme;
+}
+function themeSituationOnLoad() {
+  const theme = getLocalStorageTheme();
+
+  if (theme === "dark") {
+    moonOrSunBtn.className = "fas fa-sun";
+    html.className ="dark"
+  } else {
+    moonOrSunBtn.className = "fas fa-moon";
+    html.className ="light"
+  }
+}
