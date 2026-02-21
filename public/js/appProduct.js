@@ -70,7 +70,7 @@ function showProductDataOnDashboard(products) {
       `
         <div class="tableRow">
               <p class="product-title">${product.title}</p>
-              <p class="product-price">${product.price.toLocaleString()}</p>
+              <p class="product-price">${product.price.toLocaleString()} ریال</p>
               <p class="product-shortName">${product.slug}</p>
               <div class="product-manage">
                 <button class="edit-btn">

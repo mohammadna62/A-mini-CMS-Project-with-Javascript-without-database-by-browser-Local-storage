@@ -1,16 +1,14 @@
-//? <---------- Home Selector Section ---------------->
+//? <---------- Home (Product) Selector Section ---------------->
 const toggleMenu = document.querySelector(".toggle-sidebar");
 const homePageSidebar = document.querySelector(".sidebar");
-const tableContainer = document.querySelector(".table-body");
+const tableContainer = document.querySelector("#productContainer");
 const showCountOfProducts = document.querySelector("#showProductsCount");
 const showCountOfProductsOnHeader = document.querySelector(".products-data");
 const modalScreenEdit = document.querySelector("#product-modal-screen-edit");
 const toast = document.querySelector(".toast");
 const progress = document.querySelector(".process");
-
-
-
-
+//! <---------- Home (User) Selector Section ---------------->
+const userContainer = document.querySelector("#table-user-body");
 
 //?<----------------Product Event Section --------------->
 toggleMenu.addEventListener("click", function () {
@@ -22,6 +20,8 @@ function getData() {
   const products = getProductLocalStorage();
   showCountOfProductOnLocalStorage();
   showProductsData(products);
+  //* Users Data Call
+  showUsersOnDashboard();
 }
 
 function getProductLocalStorage() {
@@ -37,7 +37,7 @@ function showProductsData(products) {
       `
          <div class="tableRow">
                   <p class="product-title">${product.title}</p>
-                  <p class="product-price">${product.price.toLocaleString()}</p>
+                  <p class="product-price">${product.price.toLocaleString()} ریال</p>
                   <p class="product-shortName">${product.slug}</p>
                   <div class="product-manage">
                     <button class="edit-btn" onclick="editProduct(${product.id})">
@@ -86,7 +86,7 @@ function editProduct(productId) {
   const product = products.find(function (product) {
     return product.id === productId;
   });
-  modalScreenEdit.innerHTML = ""
+  modalScreenEdit.innerHTML = "";
   modalScreenEdit.classList.remove("hidden");
   modalScreenEdit.insertAdjacentHTML(
     "beforeend",
@@ -137,22 +137,21 @@ function editProduct(productId) {
         return {
           id: productId,
           title: productTitleEdit.value,
-          price: +productPriceEdit.value  ,
+          price: +productPriceEdit.value,
           slug: productSlugEdit.value,
         };
       }
       return product;
     });
-    addProductDataToLocalStorage(productEdited)
-    showCountOfProductOnLocalStorage()
-    showProductsData(productEdited)
-    toast.classList.remove("hidden")
-    setTimerToToast()
+    addProductDataToLocalStorage(productEdited);
+    showCountOfProductOnLocalStorage();
+    showProductsData(productEdited);
+    toast.classList.remove("hidden");
+    setTimerToToast();
   });
 }
 function setTimerToToast() {
   let progressSteps = 0;
-
 
   const progressInterval = setInterval(function () {
     progressSteps++;
@@ -160,8 +159,37 @@ function setTimerToToast() {
 
     if (progressSteps > 110) {
       progress.style.width = "1%";
-      toast.classList.add("hidden")
-       clearInterval(progressInterval);
+      toast.classList.add("hidden");
+      clearInterval(progressInterval);
     }
   }, 50);
+}
+
+//! <---------- Home (User) Function Section ---------------->
+
+function showUsersOnDashboard() {
+  const users = getUserDataFromLocalStorage();
+  userContainer.innerHTML = "";
+
+  for (let i = users.length; i > users.length-5; i--) {
+    let user = users[i - 1];
+    userContainer.insertAdjacentHTML("beforeend",`
+         <article>
+              <!-- user icon -->
+              <span class="icon-card">
+                <i class="fa-solid fa-user"></i>
+              </span>
+              <!-- user data -->
+              <div>
+                <p class="user-name">${user.name}</p>
+                <p class="user-email">${user.email}</p>
+              </div>
+            </article>
+      `)
+  }
+}
+
+function getUserDataFromLocalStorage() {
+  const users = JSON.parse(localStorage.getItem("user"));
+  return users;
 }
